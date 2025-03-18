@@ -1,0 +1,37 @@
+---
+- name: update os
+  apt:
+    update_cache: yes
+    upgrade: yes
+    
+- name: install docker 
+  get_url: 
+    url: https://get.docker.com
+    dest: /tmp/get-docker.sh
+    mode: '0755'
+
+- name: install docker
+  shell: /tmp/get-docker.sh
+  become: true 
+
+- name: check docker group 
+  group:
+    name: docker
+    state: present
+- name:  start docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: add user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+  become: true 
+  notify: restart docker service
+
+
+
+
