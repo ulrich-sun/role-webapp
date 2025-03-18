@@ -18,3 +18,5 @@
     image: httpd
     ports:
       - "80:80"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
