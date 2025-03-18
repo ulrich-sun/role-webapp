@@ -28,8 +28,9 @@
   get_url: 
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docker-ce.repo
-- name: update package 
-  update_cache: yes 
+- name: update package
+  yum:
+    update_cache: yes 
 
 - name: install docker 
   yum: 
